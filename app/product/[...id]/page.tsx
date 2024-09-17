@@ -43,7 +43,9 @@ export default function Home() {
   else if (!product) return <div>No Product found...</div>;
   return (
     <div className="flex flex-col p-8 border gap-4">
-      <Link href={"/"}>Back</Link>
+      <Link href={"/"} className="text-slate-700">
+        Back
+      </Link>
       <div className="w-full max-w-[400px] mx-auto border">
         <Swiper
           navigation={true}
