@@ -1,5 +1,6 @@
 "use client";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
+import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
@@ -83,10 +84,12 @@ export default function Home() {
         return (
           <div className="flex p-8 border gap-4" key={product.id}>
             <div className="max-w-[100px]">
-              <img
+              <Image
                 className="min-w-[100px]"
                 src={product.images[0]}
                 alt={product.title}
+                width={100}
+                height={100}
               />
             </div>
             <div className="flex flex-col gap-2">
@@ -103,9 +106,9 @@ export default function Home() {
           </div>
         );
       })}
-      <div className="flex gap-2 items-center">
+      <div className="flex gap-2 items-start">
         {!loading && <div>Page: </div>}
-        <div className="flex gap-4">
+        <div className="flex gap-4 flex-wrap items-start">
           {Array.from({ length: pages }, (_, i) => {
             return (
               <div

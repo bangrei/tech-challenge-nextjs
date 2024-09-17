@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -56,13 +57,18 @@ export default function Home() {
           {product.images.map((item: any) => {
             return (
               <SwiperSlide className="w-full" key={item}>
-                <img src={item} alt={product.title} />
+                <Image
+                  src={item}
+                  alt={product.title}
+                  width={500}
+                  height={500}
+                />
               </SwiperSlide>
             );
           })}
         </Swiper>
       </div>
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col gap-2 justify-center items-center">
         <span className="font-bold text-2xl">{product.title}</span>
         <span>${product.price.toString()}</span>
         <span className="text-green-500">{product.availabilityStatus}</span>
