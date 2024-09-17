@@ -9,6 +9,9 @@ export default function Home() {
   const [pageNum, setPageNum] = useState(0);
   const [pages, setPages] = useState(0);
   const [keyword, setKeyword] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("");
+  const [categories, setCategories] = useState([]);
+  const [sortPrice, setsortPrice] = useState("asc");
   const [products, setProducts] = useState([]);
 
   const perPage = 10;
@@ -17,15 +20,24 @@ export default function Home() {
     setPageNum(num);
   };
 
-  const fetchData = () => {
+  const fetchCategories = async () => {
+    await fetch("https://dummyjson.com/products/category-list")
+      .then((res) => res.json())
+      .then((data) => {
+        setCategories(data);
+      });
+  };
+  const fetchData = async () => {
     const skip = perPage * pageNum;
     var url = "https://dummyjson.com/products";
+    if (selectedCategory) url += `/category/${selectedCategory}`;
     if (keyword != "") url += `/search?q=${keyword}`;
     else {
       url += `?limit=${perPage}`;
       if (skip > 0) url += `&skip=${skip}`;
     }
-    fetch(url)
+    url += `&sortBy=price&order=${sortPrice}`;
+    await fetch(url)
       .then((res) => res.json())
       .then((data) => {
         var products: Product[] = [];
@@ -56,10 +68,16 @@ export default function Home() {
   const _search = (val: string) => {
     setKeyword(val);
   };
+  const _selectCategory = (cat: string) => {
+    setSelectedCategory(cat);
+  };
+  useEffect(() => {
+    fetchCategories();
+  }, []);
   useEffect(() => {
     setLoading(true);
     fetchData();
-  }, [pageNum, keyword]);
+  }, [pageNum, keyword, selectedCategory, sortPrice]);
   return (
     <div className="w-full h-full flex flex-col gap-4 text-slate-600 p-8">
       <div className="w-full flex p-8">
@@ -75,6 +93,34 @@ export default function Home() {
             placeholder="Search"
             className="font-light text-sm outline-none border-none min-w-[250px]"
           />
+        </div>
+      </div>
+      <div className="w-full flex flex-col md:flex-row py-8 gap-8 md:items-center justify-between relative">
+        <div className="flex items-center gap-4">
+          <div className="">Category: </div>
+          <div className="px-4 py-2 flex items-center justify-between gap-2 border rounded-md relative mx-auto">
+            <select
+              className="outline-none"
+              onChange={(e) => _selectCategory(e.target.value)}
+            >
+              <option value={""}>-- Select category --</option>
+              {categories.map((c) => {
+                return <option>{c}</option>;
+              })}
+            </select>
+          </div>
+        </div>
+        <div className="flex items-center gap-4">
+          <div className="">Sort by Price: </div>
+          <div className="px-4 py-2 flex items-center justify-between gap-2 border rounded-md relative mx-auto">
+            <select
+              className="outline-none"
+              onChange={(e) => setsortPrice(e.target.value)}
+            >
+              <option value={"asc"}>ASC</option>
+              <option value={"desc"}>DESC</option>
+            </select>
+          </div>
         </div>
       </div>
       {loading && <div className="flex justify-center">Loading...</div>}
