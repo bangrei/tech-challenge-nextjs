@@ -43,7 +43,7 @@ export default function Home() {
   return (
     <div className="flex flex-col p-8 border gap-4">
       <Link href={"/"}>Back</Link>
-      <div className="w-full">
+      <div className="w-full max-w-[400px] mx-auto">
         <Swiper
           navigation={true}
           modules={[Navigation, Autoplay]}
@@ -65,6 +65,7 @@ export default function Home() {
       <div className="flex flex-col gap-2">
         <span className="font-bold text-2xl">{product.title}</span>
         <span>${product.price.toString()}</span>
+        <span className="text-green-500">{product.availabilityStatus}</span>
         <span className="text-xs">{product.description}</span>
       </div>
     </div>
