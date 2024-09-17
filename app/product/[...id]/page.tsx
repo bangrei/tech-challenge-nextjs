@@ -69,10 +69,12 @@ export default function Home() {
         </Swiper>
       </div>
       <div className="flex flex-col gap-2 justify-center items-center">
-        <span className="font-bold text-2xl">{product.title}</span>
-        <span>${product.price.toString()}</span>
+        <span className="font-bold text-2xl text-slate-800">
+          {product.title}
+        </span>
+        <span className="text-slate-700">${product.price.toString()}</span>
         <span className="text-green-500">{product.availabilityStatus}</span>
-        <span className="text-xs">{product.description}</span>
+        <span className="text-sm text-slate-700">{product.description}</span>
       </div>
     </div>
   );
