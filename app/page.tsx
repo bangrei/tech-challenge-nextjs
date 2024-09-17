@@ -55,12 +55,11 @@ export default function Home() {
   };
   const _search = (val: string) => {
     setKeyword(val);
-    fetchData();
   };
   useEffect(() => {
     setLoading(true);
     fetchData();
-  }, [pageNum]);
+  }, [pageNum, keyword]);
   return (
     <div className="w-full h-full flex flex-col gap-4 text-slate-600 p-8">
       <div className="w-full flex p-8">
