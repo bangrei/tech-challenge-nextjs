@@ -12,7 +12,8 @@ export default function Home() {
   const [selectedCategory, setSelectedCategory] = useState("");
   const [categories, setCategories] = useState([]);
   const [sortPrice, setsortPrice] = useState("asc");
-  const [products, setProducts] = useState([]);
+  const [allProducts, setAllProducts] = useState<Product[] | []>([]);
+  const [products, setProducts] = useState<Product[] | []>([]);
 
   const perPage = 10;
 
@@ -31,7 +32,8 @@ export default function Home() {
     const skip = perPage * pageNum;
     var url = "https://dummyjson.com/products";
     if (selectedCategory) url += `/category/${selectedCategory}`;
-    if (keyword != "") url += `/search?q=${keyword}`;
+    if (keyword != "")
+      url += `${selectedCategory ? "?" : "/"}search?q=${keyword}`;
     else {
       url += `?limit=${perPage}`;
       if (skip > 0) url += `&skip=${skip}`;
@@ -61,7 +63,8 @@ export default function Home() {
         let pages = Math.floor(total / perPage);
         if (total % perPage != 0) pages += 1;
         setPages(pages);
-        setProducts(data.products);
+        setProducts(products);
+        setAllProducts(products);
         setLoading(false);
       });
   };
@@ -105,7 +108,7 @@ export default function Home() {
             >
               <option value={""}>-- Select category --</option>
               {categories.map((c) => {
-                return <option>{c}</option>;
+                return <option key={c}>{c}</option>;
               })}
             </select>
           </div>
