@@ -43,7 +43,7 @@ export default function Home() {
   return (
     <div className="flex flex-col p-8 border gap-4">
       <Link href={"/"}>Back</Link>
-      <div className="w-full max-w-[400px] mx-auto">
+      <div className="w-full max-w-[400px] mx-auto border">
         <Swiper
           navigation={true}
           modules={[Navigation, Autoplay]}
