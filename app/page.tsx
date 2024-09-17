@@ -69,6 +69,16 @@ export default function Home() {
       });
   };
   const _search = (val: string) => {
+    if (selectedCategory) {
+      const prd = allProducts.filter((p) => {
+        return (
+          p.title.toLowerCase().indexOf(val.toLowerCase()) > -1 ||
+          p.description.toLowerCase().indexOf(val.toLowerCase()) > -1
+        );
+      });
+      setProducts(prd);
+      return;
+    }
     setKeyword(val);
   };
   const _selectCategory = (cat: string) => {
