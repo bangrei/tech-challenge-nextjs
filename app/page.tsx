@@ -15,7 +15,6 @@ export default function Home() {
 
   const _changePage = (num: any) => {
     setPageNum(num);
-    fetchData();
   };
 
   const fetchData = () => {
@@ -61,7 +60,7 @@ export default function Home() {
   useEffect(() => {
     setLoading(true);
     fetchData();
-  }, []);
+  }, [pageNum]);
   return (
     <div className="w-full h-full flex flex-col gap-4 text-slate-600 p-8">
       <div className="w-full flex p-8">
