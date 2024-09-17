@@ -1,5 +1,3 @@
-// import Board from "./components/Board";
-// import ScrollTopButton from "./components/ScrollTopButton";
 "use client";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
